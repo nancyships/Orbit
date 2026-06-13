@@ -18,25 +18,43 @@ function urlBase64ToUint8Array(base64String: string) {
 }
 
 export default function PushNotificationSetup() {
-  const [permission, setPermission] = useState<NotificationPermission | null>(null)
-  const [subscribed, setSubscribed] = useState(false)
+  const [status, setStatus] = useState<'checking' | 'needed' | 'subscribed' | 'unsupported' | 'denied'>('checking')
 
   useEffect(() => {
-    if ('Notification' in window) {
-      setPermission(Notification.permission)
-    }
+    checkStatus()
   }, [])
 
-  async function enableNotifications() {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-      alert('Push notifications are not supported in this browser.')
+  async function checkStatus() {
+    if (!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) {
+      setStatus('unsupported')
       return
     }
 
-    const permission = await Notification.requestPermission()
-    setPermission(permission)
+    if (Notification.permission === 'denied') {
+      setStatus('denied')
+      return
+    }
 
-    if (permission !== 'granted') return
+    // Check if already subscribed
+    const registration = await navigator.serviceWorker.getRegistration()
+    if (registration) {
+      const existingSub = await registration.pushManager.getSubscription()
+      if (existingSub) {
+        setStatus('subscribed')
+        return
+      }
+    }
+
+    setStatus('needed')
+  }
+
+  async function enableNotifications() {
+    const permission = await Notification.requestPermission()
+
+    if (permission !== 'granted') {
+      setStatus('denied')
+      return
+    }
 
     const registration = await navigator.serviceWorker.register('/sw.js')
     await navigator.serviceWorker.ready
@@ -54,11 +72,12 @@ export default function PushNotificationSetup() {
       body: JSON.stringify(subscription)
     })
 
-    setSubscribed(true)
+    setStatus('subscribed')
   }
 
-  if (permission === 'granted' || subscribed) return null
-  if (permission === 'denied') return null
+  if (status === 'checking' || status === 'subscribed' || status === 'unsupported' || status === 'denied') {
+    return null
+  }
 
   return (
     <div style={{
