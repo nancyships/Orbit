@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}                          
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  items     Item[]
+  streak    Streak?
+}
+
+model Item {
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  url          String?
+  title        String
+  note         String?
+  category     Category  @default(READ)
+  status       Status    @default(ACTIVE)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  snoozedUntil DateTime?
+}
+
+model Streak {
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+  currentStreak Int      @default(0)
+  lastActiveAt  DateTime @default(now())
+}
+
+enum Category {
+  READ
+  WATCH
+  DO
+}
+
+enum Status {
+  ACTIVE
+  COMPLETED
+  DISMISSED
+  SNOOZED
+}
