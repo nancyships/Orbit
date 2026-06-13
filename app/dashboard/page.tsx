@@ -5,6 +5,7 @@ import Sidebar from '@/components/sidebar'
 import SaveModal from '@/components/savemodal'
 import ItemCard from '@/components/ItemCard'
 import OrbitProgress from '@/components/OrbitProgress'
+import PushNotificationSetup from '@/components/PushNotificationSetup'
 
 type Item = {
   id: string
@@ -205,6 +206,7 @@ async function handleSnooze(id: string, days: number) {
         <div style={{ flex: 1, padding: '24px' }}>
 
           {/* Streak bar */}
+          <PushNotificationSetup />
           <OrbitProgress
             totalCleared={totalCleared}
             totalSaved={items.length}
