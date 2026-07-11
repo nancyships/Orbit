@@ -47,7 +47,7 @@ export default function loginPage() {
       fontFamily: 'DM Sans, sans-serif',
       padding: '20px'
     }}>
-      <div style={{ width: '100%', maxWidth: '340px' }}>
+      <div style={{ width: '100%', maxWidth: '380px', padding: '0 16px' }}>
 
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{

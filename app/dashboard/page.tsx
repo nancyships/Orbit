@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useIsMobile } from '@/lib/useIsMobile'
 import Sidebar from '@/components/sidebar'
 import SaveModal from '@/components/savemodal'
 import ItemCard from '@/components/ItemCard'
@@ -67,6 +68,7 @@ export default function DashboardPage() {
   const [actedToday, setActedToday] = useState(false)
   const [totalCleared, setTotalCleared] = useState(0)
   const [clearedThisWeek, setClearedThisWeek] = useState(0)
+  const isMobile = useIsMobile()
 
 async function fetchItems() {
   const res = await fetch('/api/items')
@@ -150,15 +152,16 @@ async function handleSnooze(id: string, days: number) {
       display: 'flex',
       minHeight: '100vh',
       background: '#0F0F0F',
-      fontFamily: 'DM Sans, sans-serif'
+      fontFamily: 'DM Sans, sans-serif',
+      flexDirection: isMobile ? 'column' : 'row'
     }}>
       <Sidebar />
 
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingBottom: isMobile ? '80px' : '0' }}>
 
         {/* Top bar */}
         <div style={{
-          padding: '16px 24px',
+          padding: isMobile ? '14px 16px' : '16px 24px',
           borderBottom: '0.5px solid #1e1e1e',
           display: 'flex',
           alignItems: 'center',
@@ -203,7 +206,7 @@ async function handleSnooze(id: string, days: number) {
         </div>
 
         {/* Content */}
-        <div style={{ flex: 1, padding: '24px' }}>
+        <div style={{ flex: 1, padding: isMobile ? '16px' : '24px' }}>
 
           {/* Streak bar */}
           <PushNotificationSetup />
@@ -244,7 +247,7 @@ async function handleSnooze(id: string, days: number) {
               </div>
             </div>
           ) : (
-            <div style={{ maxWidth: '680px' }}>
+            <div style={{ maxWidth: isMobile ? '100%' : '680px' }}>
               {todaysOrbit.map(item => (
                 <ItemCard
                   key={item.id}

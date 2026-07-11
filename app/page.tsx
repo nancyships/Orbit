@@ -150,10 +150,7 @@ export default function LandingPage() {
         justifyContent: 'space-between',
         borderBottom: '0.5px solid #1a1a1a',
         position: 'relative',
-        zIndex: 10,
-        maxWidth: '1100px',
-        margin: '0 auto',
-        width: '100%'
+        zIndex: 10
       }}>
         <div style={{ ...heading, fontSize: '22px', letterSpacing: '-0.5px' }}>
           Orbit<span style={{ color: '#6366F1' }}>.</span>
@@ -172,7 +169,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <section style={{ position: 'relative', padding: '110px 24px 90px', textAlign: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', padding: '110px 24px 90px', textAlign: 'center', overflow: 'hidden', minHeight: '100vh', display: 'flex',  alignItems: 'center',  justifyContent: 'center'}}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', width: '500px', height: '500px', borderRadius: '50%', border: '0.5px solid #6366F110', transform: 'translate(-50%,-50%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '50%', left: '50%', width: '750px', height: '750px', borderRadius: '50%', border: '0.5px solid #6366F108', transform: 'translate(-50%,-50%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '50%', left: '50%', width: '1000px', height: '1000px', borderRadius: '50%', border: '0.5px solid #6366F105', transform: 'translate(-50%,-50%)', pointerEvents: 'none' }} />

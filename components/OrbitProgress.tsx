@@ -1,3 +1,5 @@
+import { useIsMobile } from '@/lib/useIsMobile'
+
 type ProgressProps = {
   totalCleared: number
   totalSaved: number
@@ -13,6 +15,7 @@ export default function OrbitProgress({
   const progressPercent = totalSaved + totalCleared === 0
     ? 0
     : Math.round((totalCleared / (totalSaved + totalCleared)) * 100)
+  const isMobile = useIsMobile()
 
   function getPlanetStage() {
     if (totalCleared === 0) return { emoji: '🌑', label: 'Dormant' }
@@ -25,19 +28,20 @@ export default function OrbitProgress({
   const planet = getPlanetStage()
 
   return (
-    <div style={{
-      background: '#111',
-      border: '0.5px solid #1e1e1e',
-      borderRadius: '14px',
-      padding: '16px 20px',
-      marginBottom: '24px',
-      maxWidth: '680px'
-    }}>
+      <div style={{
+        background: '#111',
+        border: '0.5px solid #1e1e1e',
+        borderRadius: '14px',
+        padding: isMobile ? '14px' : '16px 20px',
+        marginBottom: '20px',
+        maxWidth: '100%'
+      }}>
 
       <div style={{
         display: 'flex',
-        alignItems: 'center',
-        gap: '20px'
+        gap: isMobile ? '12px' : '20px',
+        marginBottom: '12px',
+        flexWrap: 'wrap'
       }}>
 
         {/* Planet visual */}

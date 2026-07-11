@@ -11,3 +11,7 @@ html, body {
   color: #F4F4F4;
   font-family: 'DM Sans', sans-serif;
 }
+
+html {
+  overflow-x: hidden;
+}

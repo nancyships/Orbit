@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 type Category = 'READ' | 'WATCH' | 'DO'
 
@@ -27,6 +28,7 @@ export default function SaveModal({
   const [fetchingTitle, setFetchingTitle] = useState(false)
   const [title, setTitle] = useState('')
   const titleRef = useRef<HTMLInputElement>(null)
+  const isMobile = useIsMobile()
 
   function isUrl(text: string) {
     return text.startsWith('http://') || text.startsWith('https://')
@@ -97,20 +99,29 @@ export default function SaveModal({
       />
 
       {/* Modal */}
-      <div style={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '100%',
-        maxWidth: '400px',
-        background: '#1A1A1A',
-        border: '0.5px solid #2a2a2a',
-        borderRadius: '14px',
-        padding: '24px',
-        zIndex: 50,
-        fontFamily: 'DM Sans, sans-serif'
-      }}>
+      {/* Modal */}
+        <div style={{
+          position: 'fixed',
+          ...(isMobile ? {
+            bottom: 0,
+            left: 0,
+            right: 0,
+            borderRadius: '20px 20px 0 0',
+            padding: '24px 20px 40px'
+          } : {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '100%',
+            maxWidth: '400px',
+            borderRadius: '14px',
+            padding: '24px'
+          }),
+          background: '#1A1A1A',
+          border: '0.5px solid #2a2a2a',
+          zIndex: 50,
+          fontFamily: 'DM Sans, sans-serif'
+        }}>
 
         {/* Header */}
         <div style={{

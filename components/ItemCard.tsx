@@ -63,14 +63,14 @@ export default function ItemCard({
       <div style={{
         border: '0.5px solid #1e1e1e',
         borderRadius: '12px',
-        padding: '14px 16px',
+        padding: '12px 14px',
         background: '#111',
         display: 'flex',
         alignItems: 'center',
-        gap: '14px',
-        transition: 'border-color 0.15s'
+        gap: '10px',
+        transition: 'border-color 0.15s',
+        minWidth: 0
       }}>
-
         {/* Category icon */}
         <div style={{
           width: '36px',
