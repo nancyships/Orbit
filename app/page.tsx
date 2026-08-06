@@ -11,12 +11,13 @@ export default function LandingPage() {
   useEffect(() => {
     const link = document.createElement('link')
     link.rel = 'stylesheet'
-    link.href = 'https://api.fontshare.com/v2/css?f[]=clash-display@700,600&f[]=switzer@400,500,600&display=swap'
+    link.href = 'https://api.fontshare.com/v2/css?f[]=general-sans@700,600&f[]=satoshi@400,500,600&display=swap'
+
     document.head.appendChild(link)
   }, [])
 
-  const h = { fontFamily: '"Clash Display", sans-serif' }
-  const b = { fontFamily: '"Switzer", sans-serif' }
+  const h = { fontFamily: '"General Sans", sans-serif' }
+  const b = { fontFamily: '"Satoshi", sans-serif' }
 
   useEffect(() => {
     const phrases = [
