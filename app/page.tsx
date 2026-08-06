@@ -11,13 +11,14 @@ export default function LandingPage() {
   useEffect(() => {
     const link = document.createElement('link')
     link.rel = 'stylesheet'
-    link.href = 'https://api.fontshare.com/v2/css?f[]=general-sans@700,600&f[]=satoshi@400,500,600&display=swap'
+    link.href = 'https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=general-sans@400,500&display=swap'
+
 
     document.head.appendChild(link)
   }, [])
 
-  const h = { fontFamily: '"General Sans", sans-serif' }
-  const b = { fontFamily: '"Satoshi", sans-serif' }
+  const h = { fontFamily: '"Cabinet Grotesk", sans-serif' }
+  const b = { fontFamily:  '"General Sans", sans-serif'}
 
   useEffect(() => {
     const phrases = [
